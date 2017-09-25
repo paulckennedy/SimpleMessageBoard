@@ -12,6 +12,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'; 
 
 import LoadingComponent from './containers/LoadingComponent';
+import AuthenticatedComponent from './containers/AuthenticatedComponent';
+import PostDetail from './containers/PostDetail';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
@@ -22,7 +24,10 @@ ReactDOM.render(
                 <Switch>
                     <Route path="/CreateAccount" component={CreateAccount} />
                     <Route path="/Login" component={Login} />
-                    <Route path="/" component={ListPosts} />
+                    <AuthenticatedComponent>
+                        <Route path="/:id" component={PostDetail} />
+                        <Route exact path="/" component={ListPosts} />
+                    </AuthenticatedComponent>
                 </Switch>
             </LoadingComponent>
         </BrowserRouter>

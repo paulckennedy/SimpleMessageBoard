@@ -10,13 +10,16 @@ import { getUser, logout } from '../actions/UserActions';
 import { Field, reduxForm, reset } from 'redux-form';
 
 import PostCard from '../components/PostCard';
+import Link from 'react-router-dom/es/Link';
 
 class ListPosts extends Component {
   renderPosts(){
     return _.map(this.props.posts, (post, key) => {
       return(
         <PostCard  key={key}>
-          <h3 className="card-title">{post.title}</h3>
+          <Link to={`/${key}`}>
+            <h3 className="card-title">{post.title}</h3>
+          </Link>
           <p className="card-text">{post.body}</p>
           <button className="btn btn-danger" onClick={() => {this.props.deletePost(key)}}>Delete</button>
         </PostCard>
@@ -31,7 +34,7 @@ class ListPosts extends Component {
   }
 
   onSubmit(values) {
-    this.props.savePost(values).then(this.props.dispatch(reset('NewPost')));
+    this.props.savePost(values, this.props.user.uid).then(this.props.dispatch(reset('NewPost')));
   }
 
   render() {
@@ -45,7 +48,7 @@ class ListPosts extends Component {
           {this.renderPosts()}
         </div>
         <div className="navbar fixed-bottom">
-          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="footerForm">
             <Field 
               name="title"
               component={this.renderField}

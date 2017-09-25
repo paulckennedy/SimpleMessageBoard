@@ -6,9 +6,9 @@ const SocialMediaLogin = (props) => {
 
     return(
         <div className="d-flex justify-content-center align-self-center mt-1">
-            <a href="#" className="btn btn-social btn-google" onClick={googleLogin}>
+            <button type="button" className="btn btn-social btn-google" onClick={googleLogin}>
                 <span className="fa fa-google"/>Sign in with Google
-            </a>
+            </button>
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { login, getUser, googleLogin } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import ErrorAlert from '../components/ErrorAlert';
 import SocialMediaLogin from '../components/SocialMediaLogin';
+import { required, errStyle } from '../helpers/ReduxFormValidation.js';
 
 
 class Login extends Component {
@@ -18,12 +19,11 @@ class Login extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.user.email !== undefined){
+    componentWillMount() {
+        if(this.props.user !== null){
             this.props.history.push('/');
         }
     }
-
     submitLogin(event) {
         event.preventDefault();
         this.props.login(this.state.email, this.state.password).catch(err => { 
@@ -34,9 +34,6 @@ class Login extends Component {
     }
 
     renderBody(){
-        const errStyle={
-            borderColor: 'red'
-        }
         return(
             <form onSubmit={event => {this.submitLogin(event);}}>
                 <div>

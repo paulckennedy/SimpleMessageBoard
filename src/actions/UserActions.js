@@ -11,13 +11,13 @@ export function getUser() {
         });
         auth.onAuthStateChanged(user => {
             dispatch({
-                type: USER_STATUS,
-                payload: false
-            });
-            dispatch({
                 type: GET_USER,
                 payload: user
             })
+            dispatch({
+                type: USER_STATUS,
+                payload: false
+            });
         })
     }
 }

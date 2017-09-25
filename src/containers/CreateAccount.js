@@ -5,6 +5,7 @@ import FooterFormButton from '../components/FooterFormButton';
 import { createAccount } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import ErrorAlert from '../components/ErrorAlert';
+import { required, errStyle } from '../helpers/ReduxFormValidation.js';
 
 class CreateAccount extends Component {
     constructor(props){
@@ -50,9 +51,6 @@ class CreateAccount extends Component {
     }
 
     renderBody(){
-        const errStyle={
-            borderColor: 'red'
-        }
         return(
             <div>
                 <form onSubmit={(event) => this.submitAccount(event)}>

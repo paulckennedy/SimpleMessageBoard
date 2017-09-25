@@ -8,15 +8,15 @@ export function getPosts() {
             type: POST_STATUS,
             payload: true
         });
-        database.on('value', data => {
-            dispatch({
-                type: POST_STATUS,
-                payload: true
-            });
+        database.on('value', data => {           
             dispatch({
                 type: FETCH_POSTS,
                 payload: data.val()
             })
+            dispatch({
+                type: POST_STATUS,
+                payload: false
+            });
         }, () => {
             dispatch({
                 type: POST_STATUS,
@@ -26,8 +26,8 @@ export function getPosts() {
     }
 }
 
-export function savePost(values) {
-    return dispatch => database.push(values);
+export function savePost(post, uid) {
+    return dispatch => database.push({...post, uid});
 }
 
 export function deletePost(id) {

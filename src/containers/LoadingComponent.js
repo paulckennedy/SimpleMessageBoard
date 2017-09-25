@@ -9,30 +9,38 @@ import { withRouter } from 'react-router-dom';
 
 class LoadingComponent extends Component {
     componentWillMount() {
-        const { loading } = this.props;
-        if(loading.user === undefined){
+        const { userLoading, postsLoading } = this.props;
+        if(userLoading === undefined){
+            //console.log("LoadingComponent componentWillMount getUser");
             this.props.getUser();
         }
-        if(loading.posts === undefined){
+        if(postsLoading === undefined){
+            //console.log("LoadingComponent componentWillMount getPosts");
             this.props.getPosts();
         }
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.loading.posts === -1 && nextProps.user !== null){
+        if(nextProps.postsLoading === -1 && nextProps.user !== null){
+            //console.log("LoadingComponent componentWillReceiveProps getPosts");
             this.props.getPosts();
         }
     }
 
     render() {
-        const { user, posts } = this.props.loading;
-        if((!user && !posts)) || this.props.user === null))
-        return(
-            <div>
-                {this.props.children}
-            </div>
-        )
-        elsereturn <Loading />
+        const { userLoading, postsLoading, children } = this.props;
+        if((!userLoading && !postsLoading) || (this.props.user === null)){
+            return(
+                <div>
+                    {children}
+                </div>
+            )    
+        }
+        else
+            //console.log(`LoadingComponent render userLoading: ${userLoading} postsLoading: ${postsLoading}`);
+            return (
+                <div>Loading...</div>
+            )
     }
 }
 
